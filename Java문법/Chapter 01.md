@@ -44,7 +44,7 @@ JDK-자바개발도구(Java Development Kit) = JRE-자바실행환경(Java Runti
 
 JRE = JVM + 클래스라이브러리(Java API)
 
-<img src="C:\Users\이진형\바탕 화면\TIL\img\01-21.png" style="zoom: 50%;" />
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/bebbea43-0b73-4f6f-8791-48bf9fcfa183" width="400px" height="200">
 
 JDK의 bin디렉토리에 있는 주요 실행파일
 
@@ -80,7 +80,7 @@ Hello.java작성 ----------> Hello.class 생성  ----------> "Hello,world." 출�
 3.지정된 클래스(Hello)에서 main(String[] args)를 호출한다.
 ```
 
-![](C:\Users\이진형\바탕 화면\TIL\img\01-31.png )
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/06ba13c4-d760-4893-ab94-eb0650da6262" width="400px" height="200">
 
 ```java
 class 클래스이름{
