@@ -106,7 +106,7 @@ class 클래스이름{
 
 | Hello2.java                                                  | Hello3.java                                                  | hello2.java                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| public class Hello2 {}<br>public class Hello3 {}             | public class Hello3 {}<br>            class Hello3 {}        | public class Hello2 {}<br>            class Hello3 {}        |
+| public class Hello2 {}<br>public class Hello3 {}             | public class Hello2 {}<br>            class Hello3 {}        | public class Hello2 {}<br>            class Hello3 {}        |
 | 하나의 소스파일에 둘 이상의 public class가 존재하면 안된다. 각클래스를 별도의 소스파일에 나눠서 저장하던가 아니면 둘 중의 한 클래스에 public을 붙이지 않아야 한다. | 소스파일의 이름이 public class의 이름과 일치하지 않기에 Hello2.java로 변경해야함 | 대소문자 까지 일치해야하므로 소스파일의 이름에서 h를 H로 바꿔야 한다. |
 
 #### 3.3 자주 발생하는 에러와 해결방법
