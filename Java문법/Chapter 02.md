@@ -162,4 +162,4 @@ class StringEx{
 
 실행결과
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\02-03code.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/01a502bb-905e-413b-8173-19ba0ed2d3a5" width="300px" height="200px">
