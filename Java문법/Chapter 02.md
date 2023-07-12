@@ -163,3 +163,19 @@ class StringEx{
 실행결과
 
 <img src="https://github.com/GitmasterLJH/java-til/assets/129172593/01a502bb-905e-413b-8173-19ba0ed2d3a5" width="300px" height="200px">
+
+
+
+#### 2.3 printf()
+
+| 지시자 | 설명                                        |
+| ------ | ------------------------------------------- |
+| %b     | boolean형식으로 출력                        |
+| %d     | 10진(decimal)정수 형으로 출력               |
+| %o     | 8진(octal)정수의 형식으로 출력              |
+| %x,%X  | 16진(hexa-decimal)정수의 형식으로 출력      |
+| %f     | 부동 소수점(floating-point)의 형식으로 출력 |
+| %e,%E  | 지수(exponent) 표현식의 형식으로 출력       |
+| %c     | 문자(character)로 출력                      |
+| %s     | 문자열(string)로 출력                       |
+

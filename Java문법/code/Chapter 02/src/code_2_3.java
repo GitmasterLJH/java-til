@@ -1,4 +1,5 @@
-class StringEx{
+//문자열 출력 예제
+public class code_2_3 {
     public static void main(String[] args) {
         String name= "Ja" + "va";
         String str = name +8.0;

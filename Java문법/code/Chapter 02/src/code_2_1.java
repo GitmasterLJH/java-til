@@ -1,4 +1,4 @@
-class VarEx1{
+public class code_2_1 {
     public static void main(String [] agrs){
         int year =0;
         int age =14;
@@ -9,5 +9,4 @@ class VarEx1{
         System.out.println(year);
         System.out.println(age);
     }
-
 }
