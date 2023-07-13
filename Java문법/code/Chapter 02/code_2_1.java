@@ -1,4 +1,3 @@
-//변수를 선언, 저장하는 예제
 public class code_2_1 {
     public static void main(String [] agrs){
         int year =0;
@@ -11,3 +10,9 @@ public class code_2_1 {
         System.out.println(age);
     }
 }
+/* 결과
+0
+14
+2014
+15
+ */

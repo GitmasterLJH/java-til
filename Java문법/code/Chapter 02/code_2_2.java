@@ -10,3 +10,8 @@ public class code_2_2 {
         System.out.println("x:"+ x + " y: "+ y);
     }
 }
+/* 결과
+x:10 y: 20
+x:20 y: 10
+
+ */

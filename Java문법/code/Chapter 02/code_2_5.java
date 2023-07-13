@@ -19,6 +19,19 @@ public class code_2_5 {
         System.out.printf("[%s]%n",url);
         System.out.printf("[%20s]%n",url);
         System.out.printf("[%-20s]%n",url);
-        System.out.printf("[%.8s]%n",url);
+        System.out.printf("[%.8s]%n",url);  //8글자만 출력
     }
 }
+/* 결과
+f1=0.100000, 1.000000e-01, 0.100000
+f1=10.000000, 1.000000e+01, 10.0000
+f1=3140.000000, 3.140000e+03, 3140.00
+d=1.234568
+d=  1.2345678900
+[12345678901234567890]
+[www.codechobo.com]
+[   www.codechobo.com]
+[www.codechobo.com   ]
+[www.code]
+
+ */

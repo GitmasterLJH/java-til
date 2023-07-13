@@ -14,3 +14,14 @@ public class code_2_3 {
         System.out.println("" + 7 + 7);
     }
 }
+/* 결과
+Java
+Java8.0
+7
+ 7
+7
+7
+
+14
+77
+ */

@@ -27,3 +27,16 @@ public class code_2_4 {
         System.out.printf("binNum=%s, %d%n", Integer.toBinaryString(binNum),binNum);
     }
 }
+/* 결과
+b=1
+s=2
+c=A, 65
+finger=[   10]
+finger=[10   ]
+finger=[00010]
+big=100000000
+hex=0xffffffffffffffff
+octNum=10, 8
+hexNum=10, 16
+binNum=10, 2
+ */
