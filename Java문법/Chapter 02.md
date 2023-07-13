@@ -142,30 +142,6 @@ short s =0x1234;
 - 문자 리터럴 : char ch = 'A';                char ch = ' '; 빈 문자 불가능
 - 문자열 리터럴  : String name = "Apple";      String name = " "; 빈 문자열 가능
 
-```java
-class StringEx{
-    public static void main(String[] args) {
-        String name= "Ja" + "va";
-        String str = name +8.0;
-        System.out.println(name);
-        System.out.println(str);
-        System.out.println(7 + " ");
-        System.out.println(" " + 7);
-        System.out.println(7 + "");
-        System.out.println("" + 7);
-        System.out.println("" + "");
-        System.out.println(7 + 7+ "");
-        System.out.println("" + 7 + 7);
-    }
-}
-```
-
-실행결과
-
-<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/01a502bb-905e-413b-8173-19ba0ed2d3a5" width="300px" height="200px">
-
-
-
 #### 2.3 printf()
 
 | 지시자 | 설명                                        |
