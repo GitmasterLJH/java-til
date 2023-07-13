@@ -332,7 +332,7 @@ char tab = '\t';  //변수 tab에 탭 문자를 저장
 
 부호(Sign) , 지수(Exponent),가수(Mantissa)
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\02-44.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/2da19296-0284-4abb-afb4-802b03122335" width="400px" height="150px">
 
 **1. 부호(Sign bit)**
 
@@ -403,11 +403,11 @@ flowchart LR
   - 지수(E)는 float의 기저(127)을 뺸후 double의 기저(1023)을 더해서 변환
   - 가수(M)는 float의 가수 23자리를 채우고 남은 자리를 0으로 채운다.
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\02-55-float to double.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/6bdffc74-dcbc-4f97-ba9f-b1fd987cc317" width="400px" height="120px">
 
 - **double을 float로 형변환 하는 경우**
 
-  ![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\02-55-double to float.png)
+  <img src="https://github.com/GitmasterLJH/java-til/assets/129172593/a849a9ee-aa3b-431a-af68-c2a1513f9432" width="500px" height="120px">
 
   - 지수(E)는 double의 기저(1023)을 뺸후 float의 기저(127)을 더해서 변환
   - 가수(M)는 double의 가수 52자리 중 23자리만 저장되고 나머지는 버려짐
@@ -437,8 +437,8 @@ flowchart LR
 
 ###### 자동 형변환이 가능한 방향 
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\02-56.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/827a1c89-5206-452a-9a3c-e738c37c25f9" width="500px" height="150px">
 
 - 왼쪽에서 오른쪽으로의 변환은 자동 형변환
 - 반대 방향의 변환은 반드시 형변환 연산자 사용
-- char, short은 둘다 2byte지만 char(0~65535), short(-32768~32767) **<u>범위가 서로 달라서 둘 중어느쪽으로의 형변환도 값 손실이 발생</u>**할 수 있으므로 자동 형변환 불가
+- char, short은 둘다 2byte지만 char(0 ~ 65535), short(-32768 ~ 32767) **범위가 서로 달라서 둘 중어느쪽으로의 형변환도 값 손실이 발생**할 수 있으므로 자동 형변환 불가
