@@ -6,7 +6,7 @@
 
 #### 1.1 연산자의  우선순위와 결합규칙
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\03-11.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/b778d484-2d2c-47ac-88c2-b60003497e2f" width="400px" height="300px">
 
 **주의 해야할 연산자 우선순위 예**
 
