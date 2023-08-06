@@ -46,8 +46,9 @@ char gender = regNo.charAt(7);  //입력받은 번호의 8번째 문자를  gend
 #### 속도 향상을 위한 경우
 
 ```java
-// if문을 이용한다면 최대 4번의 조건식을 계산해야하지만 switch문은 조건식을 1번만 계산하면 되므로 빠르다. 그러나 코드가 복잡해저서 좋지 않은 코드가 됨
-
+/* if문을 이용한다면 최대 4번의 조건식을 계산해야하지만 switch문은 조건식을 1번만 계산하면 되므로 빠르다.
+그러나 코드가 복잡해저서 좋지 않은 코드가 됨
+*/
 switch(score){
             case 100: case 99: case 98: case 97: case 96:
             case 95:  case 94: case 93: case 92: case 91: case 90:
