@@ -73,5 +73,32 @@ switch(score){
 
 ---
 
-#### 2.1 for문
+#### 2.1 향상된 for문
 
+- JDK1.5부터 새로운 문법이 추가됨
+
+- 배열이나 컬렉션에 저장된 요소들을 읽어오는 용도로만 사용할 수 있다.
+
+  ```java
+  for(타입 변수명 : 배열 또는 컬렉션){
+  	// 반복할 문장
+  }
+  ```
+
+- 배열의 모든 요소 출력 예제
+
+  ```java
+  int [] arr = {10,20,30,40,50};
+  
+  // 일반적인 for문
+  for(int i=0;i<arr.length;i++){
+  	System.out.println(arr[i])
+  }
+  
+  // 향상된 for문
+  for(int tmp : arr){
+  	System.out.println(tmp);
+  }
+  ```
+
+   	
