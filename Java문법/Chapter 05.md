@@ -101,7 +101,7 @@ name[2] = new String("Yi");					   name[2] = "Yi";
 
 **참조형 배열 : 배열에 실제 객체가 아닌 객체의 주소가 저장되어 있다.**
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\05-21.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/aacc695c-bd1c-4296-ad1c-0666255a6212" width="400px"  height="150px">
 
 #### 2.2 char 배열과 String클래스
 
