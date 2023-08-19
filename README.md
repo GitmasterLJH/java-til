@@ -16,5 +16,5 @@
 
 #### Chapter 05 배열
 
-- [개념정리]()
+- [개념정리](https://github.com/GitmasterLJH/java-til/blob/main/Java%EB%AC%B8%EB%B2%95/Chapter%2005.md)
 - [실습코드]()
