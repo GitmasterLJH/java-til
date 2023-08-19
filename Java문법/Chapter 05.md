@@ -48,6 +48,7 @@ score = {50, 60, 70, 80, 90};     // 에러 new int[]를 생략할 수 없음
 - `Arrays.toString(배열)` : '[첫번째 요소, 두번쨰 요소...]'와 같은 형식의 문자열로 만들어서 반환
 
   - 사용하기 위해서 `import java.util.*; `사용
+  - ex> System.out.println(Arrays.toString(arr));
 
 - char 배열은 예외적으로 println메서드로 출력하면 각 요소가 구분자 없이 그대로 출력됨
 
@@ -92,9 +93,9 @@ String[] name = new String[3];  // 3개의 문자열을 담을 수 있는 배열
 
 ```
 String[] name = new String[3];                 String[] name = new String[3];
-name[0] = new String("Kim");	 생략 가능	  	name[0] = "Kim";
+name[0] = new String("Kim");	 생략 가능      name[0] = "Kim";
 name[1] = new String("Park");	---------->    name[1] = "Park";
-name[2] = new String("Yi");					   name[2] = "Yi";
+name[2] = new String("Yi");		       name[2] = "Yi";
 ```
 
 ****
