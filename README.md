@@ -15,5 +15,5 @@
 - [개념정리](https://github.com/GitmasterLJH/java-til/blob/main/Java%EB%AC%B8%EB%B2%95/Chapter%2005.md)
 - [실습코드](https://github.com/GitmasterLJH/java-til/blob/main/Java%EB%AC%B8%EB%B2%95/code/Chapter%2005/code_5_1.java)
 ### Chapter 06 객체지향 프로그래밍 I
-- [개념정리]()
-- [실습코드]()
+- [개념정리](https://github.com/GitmasterLJH/java-til/blob/main/Java%EB%AC%B8%EB%B2%95/Chpater%2006.md)
+- [실습코드](https://github.com/GitmasterLJH/java-til/tree/main/Java%EB%AC%B8%EB%B2%95/code/Chapter%2006)
