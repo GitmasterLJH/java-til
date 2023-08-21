@@ -80,7 +80,7 @@
 
 TV예시
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\06-23.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/eeb3d6ca-e248-441b-b0d7-b4b73abde766" width="500px" height="200px">
 
 #### 2.4 인스턴스의 생성과 사용
 
