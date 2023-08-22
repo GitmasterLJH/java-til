@@ -218,7 +218,7 @@ class Variables
 - 각 카드의 폭과 높이는 모든 인스턴스가 공통적으로 같은 값을 유지해야하므로 **클래스변수로  선언**
 - 카드의 폭을 변경해야할 필요가 있는경우 한카드의 width값만 변경해도 모든 카드의 값이 변경됨
 
-![](C:\Users\이진형\바탕 화면\TIL\Java문법\img\06-32.png)
+<img src="https://github.com/GitmasterLJH/java-til/assets/129172593/ade81d68-81df-40ad-940a-9da326d68cdb" width="500px" height="200px">
 
 #### 3.3 메서드
 
