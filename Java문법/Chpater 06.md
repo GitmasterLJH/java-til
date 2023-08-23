@@ -475,3 +475,196 @@ class MyMath2{
 }
 ```
 
+#### 3.12 클래스 멤버와 인승턴스 멤버간의 참조와 호출
+
+```
+같은 클래스에 속한 멤버들 간에는 인스턴스를 생성하지 않고도 서로 참조 또는 호출이 가능하다.
+단, 클래스멤버가 인스턴스 멤버를 참조 또는 호출하고자 하는 경우에는 인스턴스를 생성해야한다.
+```
+
+예제
+
+```java
+public class MemberCall {
+    int iv = 10;
+    static int cv = 20;
+
+    int iv2 = cv;
+    // static int cv2 = iv2;  // 에러. 클래변수는 인스턴스 변수를 사용할 수 없음.
+    static int cv2 = new MemberCall().iv2;
+
+    static void staticMethod1(){
+        System.out.println(cv);
+       // System.out.println(iv); 에러. 클래스메서드 인스턴스 변수 사용불가
+        MemberCall c = new MemberCall();
+        System.out.println(c.iv);       // 객체를 생성한 후에야 인스턴스변수 참조가능
+    }
+    void instatnceMethod1(){
+        System.out.println(cv);
+        System.out.println(iv);     // 인스턴스 메서드는 인스턴스 변수 바로 사용 가능
+    }
+    static void staticMethod2(){
+        staticMethod1();
+        // insatnceMethod1();  에러. 클래스메서드에서는 인스턴스메서드를 호출할 수 없음.
+        MemberCall c = new MemberCall();
+        c.instatnceMethod1();  // 인스턴스를 생성한 후에야 호출할 수 있음.
+    }
+    void instanceMethod2(){     // 인스턴스 메서드에서는 모두 인스턴스 생성없이 바로 호출 가능
+        staticMethod1();
+        instatnceMethod1();
+    } 
+}
+```
+
+알아두면 좋은 정보
+
+```java
+// 다음의 두줄을 아래 한 줄로 표현 가능
+MemberCall c = new MemberCall();
+int result = c.instanceMethod1();
+
+int result = new MemberCall().instanceMethod1();
+
+// 대신 참조변수를 선언하지 않았기 때문에 생성된 MemberCall인스턴스는 더 이상 사용할 수 없다.
+```
+
+### 4. 오버로딩(overloading)
+
+---
+
+#### 4.1 오버로딩이란?
+
+- 한 클래스 내에 같은 이름의 메서드를 여러 개 정의하는 것
+
+- 조건
+
+  - **메서드 이름이 같아야 한다.**
+  2. **매개변수의 개수 또는 타입이 달라야 한다.**
+
+  - 반환 타입은 오버로딩을 구현하는데 아무런 영향을 주지 못한다.
+
+1.매개변수의 이름만 다른 경우
+
+```java
+// 매개변수의 이름만 다를뿐 타입이 같기 떄문에 오버로딩 성립x
+
+int add(int a, int b){return a+b;}
+int add(int x, int y){return x+y;}
+
+// 수학에서 f(x)=x+1 과 f(a) = a+1이 같은 표현인 것과 같다.
+```
+
+2.리턴타입만 다른 경우
+
+```java
+// 이것도 역시 매개변수의 타입과 개수가 일치하기 때문에 
+// add(3,3)을 호출하였을때 어떤 메서드가 호출된 것인지 결정할 수 없기 떄문에 오버로딩 x
+
+int add(int a, int b){return a+b;}
+long add(int a, int b){return (long)(a+b);}
+```
+
+3.순서가 다른 경우
+
+```java
+// 호출 시 매개변수의 값에 의해 호출될 메서드가 구분될 수 있으므로 오버로딩 O
+
+long add(int a, long b){return a+b;}     // add(3,3L) 호출 시
+long add(long a, int b){return a+b;}	 // add(3L,3) 호출 시
+
+// 만약 add(3,3)과 같이 호출 한다면 두 메서드중 어느 메서드가 호출된 것인지 알 수 없기 떄문에 컴파일 에러
+```
+
+#### 4.2 오버로딩의 장점
+
+메서드도 변수처럼 단지 이름만으로 구별된다면, 한 클래스내의 모든 메서드들은 이름이 달라저야한다
+
+--> 그렇다면 10가지의 println메서드들은 각기 다른 이름을 가져야 한다.
+
+ 예를 들면, 아래와 같은 방식으로 변경 되어야 할것이다.
+
+```java
+void println()
+void printlnBoolean(boolean x)
+void printlnChar(char x)
+void printlnDouble(double x)
+void printlnString(String x)
+```
+
+근본적으로 같은 기능을 하는 메서드들이지만 서로 다른 이름을 가져야 하기 때문에 작성자는 이름 짓기 어렵고 사용자는 이름을 일일이 구분해서 기억해야하기 때문에 서로 부담이됨
+
+하지만 오버로딩을 통해 여러 메서드들이 println이라는 하나의 이름으로 정의되어 이름을 기억하기 쉽고 짧게 할 수 있어 오류의 가능성을 많이 줄일 수 있다.
+
+```
+결론
+
+1. 메서드의 이름만 보고도 이 메서드들은 이름이 같으니, 같은 기능을 하겠구나 라고 쉽게 예측 가능
+2. 메서드의 이름을 절약할 수 있다.
+```
+
+#### 4.5 가변인자(varargs)와 오버로딩
+
+**가변인자(variable arguments)**
+
+- 매개변수 개수를 동적으로 지정하는 기능
+- `타입... 변수명`과 같은 형식으로 선언
+  - 예시 : public PrintStream printf(String format, Object... args){ ... }
+- 가변인자는 항상 마지막 매개변수이어야 한다.
+- 가변인자가 선언된 메서드를 호출할 때마다 배열이 새로 생성된다.
+  - 이러한 비효율이 숨어있으므로 꼭 필요한 경우에만 가변인자 사용
+
+#### 가변인자 사용예시
+
+-여러 문자열을 하나로 결합하여 반환하는 concatenate메서드를 작성한다면, 아래와 같이 매개변수의 개수를 다르게 해서 여러개의 메서드를 작성해야할 것이다.
+
+```java
+String concatenate(String s1, String s2){...}
+String concatenate(String s1, String s2, String s3){...}
+String concatenate(String s1, String s2, String s3, String s4){...}
+
+// 이럴때, 가변인자를 사용하면 메서드 하나로 간단히 대체 가능
+String concatenate(String ... str) 
+    
+    
+// 메서드 호출시
+System.out.println(concatenate());	// 인자가 없음
+System.out.println(concatenate("a"));	// 인자가 하나
+System.out.println(concatenate("a","b"));  // 인자가 둘
+System.out.println(concatenate(new String[]{"A","B"}));   // 배열도 가능
+```
+
+#### 매개변수의 타입을 배열로 한경우
+
+반드시 인자를 지정해야되서 인자를 생략 불가,그래서  null이나 길이가 0인 배열을 인자로 지정해줘야함
+
+```
+String concatenate(String[] str){...}
+
+String result = concatenate(new String[0]);	// 인자로 배열을 지정
+String result = concatenate(null);	// 인자로 null을 지정
+String result = concatenate();		// 에러 인자가 필요함.
+```
+
+#### 가변인자를 사용한 메서드 오버로딩 에러
+
+가변인자를 선언한 메서드를 오버로딩하면, 메서드를 호출했을 때 이와 같이 구별되지 못하는 경우가 발생하기 쉽기 떄문에 주의해야한다. 가능한 가변인자를 사용한 메서드는 오버로딩하지 않는 것이 좋다.
+
+```java
+static String concatenate(String delim, String ... args){
+        String result = "";
+
+        for(String str :args){
+            result += str + delim;
+        }
+        return result;
+    }
+    
+    
+static String concatenate(String ... args){
+        return concatenate("",args);		//  concatenate 메서드 호출
+}
+
+// 컴파일 에러 VarArgsEx.java:5: error: reference to concatenate is ambiguous
+
+```
+
