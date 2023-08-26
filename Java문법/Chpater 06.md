@@ -664,7 +664,269 @@ static String concatenate(String ... args){
         return concatenate("",args);		//  concatenate 메서드 호출
 }
 
-// 컴파일 에러 VarArgsEx.java:5: error: reference to concatenate is ambiguous
+/* 컴파일 에러 VarArgsEx.java:5: error: reference to concatenate is ambiguous
+concatenate("",args)메서드 호출시 static String concatenate(String delim, String ... args),
+,static String concatenate(String ... args) 둘중 어떤 메서드 인지 구별되지 않음
+```
 
+### 5. 생성자(Constructor)
+
+----
+
+#### 5.1 생성자란?
+
+- 인스턴스가 생성될 떄 호출되는 '인스턴스 초기화 메서드'이다.
+- 변수 초기화 작업에 주로 사용되며, 인스턴스 생성 시에 실행되어야 할 작업을 위해서도 사용된다.
+
+```
+생성자의 조건
+
+1. 생성자의 이름은 클래스의 이름과 같아야 한다.
+2. 생성자는 리턴 값이 없다.
+```
+
+```Java
+클래스 이름(타입변수명, 타입변수명, ...){
+	// 인스턴스 생성 시 수행될 코드,
+	// 주로 인스턴스 변수의 초기화 코드를 적는다.
+}
+
+class Card{
+	Card(){			// 매개변수가 없는 생성자
+		...
+	}
+	
+	Card(String k, int num){		// 매개변수가 있는 생성자
+		...
+	}
+}
+```
+
+Card클래스의 인스턴스 생성 코드예시
+
+```
+Card c = new Card();
+
+1. 연산자 new에 의해서 메모리(heap)에 Card클래스의 인스턴스가 생성된다.
+2. 생성자 Card()가 호출되어 수행된다.
+3. 연산자 new의 결과로, 생성된 Card인스턴스의 주소가 반환되어 참조변수 c에 저장된다.
+
+연산자 new가 인스턴스를 생성하는 것이지 생성자가 인스턴스를 생성하는 것이 아니다.
+생성자는 단순히 인스턴스변수들의 초기화에 사용되는 조금 특별한 메서드이다.
+생성자가 갖는 몇 가지 특징만 제외하면 메서드와 다르지 않다.
+```
+
+#### 5.2 기본 생성자(default constructor)
+
+- 모든 클래스에는 반드시 하나 이상의 생성자가 정의되어 있어야 한다.
+
+- 컴파일 할 때, 소스파일(*.java)의 **클래스에 생성자가 하나도 정의되지 않은 경우** 컴파일러는 자동적으로 기본 생성자를 추가하여 컴파일 한다.
+
+- 클래스의 접근 제어자가 public이면 기본 생성자도  public 클래스이름() { }
+
+  ```java
+  // 기본 생성자 : 매개변수x, 내용x
+  
+  클래스 이름() { }
+  Card() { }
+  ```
+
+#### 5.3 생성자에서 다른 생성자 호출하기 - this(), this
+
+생성자 간에 서로 호출  가능하기 위한 조건
+
+```
+- 생성자의 이름으로 클래스이름 대신 this를 사용한다
+- 한 생성자에서 다른 생성자를 호출할 때는 반드시 첫 줄에서만 호출이 가능하다.
+```
+
+예시
+
+```java
+Car(String color){
+	door = 5;					// 첫 번째줄
+	Car(color, "auto",4);		// 에러1. 생성자의 두 번째 줄에서 다른 생성자 호출
+}								// 에러2. this(color, "auto",4);로 해야함
+```
+
+#### 5.4 this
+
+```java
+// 매개변수와 인스턴스변수 이름이 구별되는 경우
+Car(String c, String g, int d){
+        color = c;
+        gearType = g;
+        door = d;
+
+// 매개변수와 인스턴스변수 이름이 구별 안되는 경우  	----> 인스턴스변수 앞에 this를 사용하면 된다.
+Car(String color, String gearType, int door){
+        this.color = color;		// this.color는 인스턴스변수, color는 생성자의 매개변수로 정의된 지역변수
+        this.gearType = gearType;
+        this.door = door;
+```
+
+- this를 사용할 수 있는 것은 인스턴스 멤버 뿐이다.
+
+  ```
+  this 인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어 있다.
+  	모든 인스턴스메서드에 지역변수로 숨겨진 채로 존재한다.
+  	
+  this(),this(매개변수) 생성자, 같은 클래스의 다른 생성자를 호출할 때 사용한다.
+  ```
+
+
+
+#### 5.5 생성자를 이용한 인스턴스의 복사
+
+```java
+// 인스턴스의 복사를 위한 생성자
+Car(Car c){
+        color = c.color;
+        gearType = c.gearType;
+        door = c.door;
+}
+
+// 위의 코드를 더 좋게 바꾸는 법
+Car(Car c){
+    // Car(String color, String gearType, int door)
+    this(c.color,c.gearType,c.door);
+}
+```
+
+```
+인스턴스를 생성할 때는 다음의 2가지 사항을 결정해야한다.
+	1. 클래스 - 어떤 클래스의 인스턴스를 생성할 것인가?
+	2. 생성자 - 선택한 클래스의 어떤 생성자로 인스턴스를 생성할 것인가?
+```
+
+### 6. 변수의 초기화
+
+---
+
+#### 6.1 변수의 초기화
+
+- 멤버 변수(클래스변수, 인스턴스변수)
+  - 자동적으로 변수의 자료형에 맞는 기본값으로 초기화가 이루어짐, 따라서 초기화하지 않고 사용 가능
+
+- 지역변수 
+  - 사용하기 전에 반드시 초기화 해야한다.
+  
+    ```java
+    class InitTest{
+    	int x;			// 인스턴스 변수
+    	int y = x;		// 인스턴스 변수 x 초기화 하지 않고 사용
+    	
+    	void method1(){
+    		int i;		// 지역변수
+    		int j = i;	// 에러, 지역변수 i 초기화 하지않고 사용
+    	}
+    }
+    ```
+
+#### -멤버 변수의 초기화 방법
+
+```
+1. 명시적 초기화(explicit initialization)
+2. 생성자(constructor)
+3. 초기화 블럭(initialization block)
+```
+
+#### 6.2 명시적 초기화(explicit initialization)
+
+- 변수를 선언과 동시에 초기화 하는것
+
+  ```java
+  class Car{
+  	int door = 4;		// 기본형(primitive type) 변수의 초기화
+  	Engine e = new Engine();	// 참조형(reference type) 변수의 초기화
+  }
+  ```
+
+#### 6.3 초기화 블럭(initialization block)
+
+```java
+class InitBlock{
+	static{ /* 클래스 초기화 블럭입니다. /*}
+	
+	{ /* 인스턴스 초기화 블럭입니다.*/}
+}
+```
+
+```
+클래스 초기화 블럭 : 클래스 변수의 복잡한 초기화에 사용된다.
+	- 클래스가 메모리에 처음 로딩될 때 한번만 수행된다.
+인스턴스 초기화 블럭 : 인스턴스변수의 복잡한 초기화에 사용된다.
+	- 인스턴스를 생성할 때 마다 수행된다.
+	- 생성자 보다 인스턴스 초기화 블럭이 먼저 수행된다.
+	- 인스턴스 변수의 초기화는 주로 생성자를 사용하고, 인스턴스 초기화 블럭은 모든 생성자에서 공통으로 수행돼야 하는 코드를 넣		는데 사용
+```
+
+ex)
+
+```java
+Car(){
+	count++;
+	serialNo = count;
+	color = "White";
+	gearType = "Auto";
+}
+Car(String color, String gearType){
+	count++;
+	serialNo = count;
+	this.color = color;
+	this.gearType = gearType;
+}
+
+// 위의 코드의 생성자에서 중복된 코드를 인스턴스 초기화 블럭에 넣어준다.
+{
+	count++;
+	serialNo = count;
+}
+Car(){
+	color = "White";
+	gearType = "Auto";
+}
+Car(String color, String gearType){
+	this.color = color;
+	this.gearType = gearType;
+}
+// 재사용성을 높이고 중복을 제거한다.(객체지향프로그래밍이 추구하는 궁극적인 목표)
+```
+
+#### 6.4 멤버변수의 초기화 시기와 순서
+
+```
+클래스변수의 초기화 시점 : 클래스가 처음 로딩될 때 단 한번 초기화
+	[참고] 클래스의 로딩 시기는 JVM의 종류에 따라 다름, 클래스가 필요할 때 바로 메모리에 로딩하도록 설계가 되어있는 것도 있고		  실행효율을 높이기 위해서 사용될 클래스들을 프로그램이 시작될 때 미리 로딩하도록 되어있는 것도 있다.
+	
+인스턴스변수의 초기화 시점 : 인스턴스가 생성될 때마다 각 인스턴스별로 초기화가 이루어진다.
+
+클래스변수의 초기화순서 : 기본값 -> 명시적초기화 -> 클래스 초기화 블럭
+인스턴스변수의 초기화순서 : 기본값 -> 명시적초기화 -> 인스턴스 초기화 블럭 -> 생성자
+```
+
+ex)
+
+```java
+class InitTest{
+	static int cv = 1;	// 명시적 초기화
+	int iv = 1;			// 명시적 초기화
+	
+	static{			cv = 2 		}		// 클래스 초기화 블럭
+	{			iv = 2  		}		// 인스턴스 초기화 블럭
+	InitTest(){							// 생성자
+		iv = 3;
+	}	
+}
+/* 순서
+1. cv가 메모리(method area)에 생성되고, cv에는 int형이 기본값인 0이 cv에 저장된다.
+2. 그 다음에는 명시적 초기화(int cv = 1)에 의해서 cv에 1이 저장된다.
+3. 마지막으로 클래스 초기화 블럭(cv = 2)이 수행되어 cv에는 2가 저장된다.
+4. InitTest클래스의 인스턴스가 생성되면서 iv가 메모리(heap)에 존재하게 된다. 
+   iv 역시 int형 변수이므로 기본값 0이 저장된다.
+5. 명시적 초기화에 의해서 iv에 1이 저장
+6. 인스턴스 초기화 블럭이 수행되어 iv에 2가 저장된다.
+7. 마지막으로 생성자가 수행되서 iv에 3이 저장된다.
+*/
 ```
 
