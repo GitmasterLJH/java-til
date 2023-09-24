@@ -65,7 +65,7 @@ class Value{
 
 위 예제를 통해 Object클래스로부터 상속받은 equals메서드는 두 참조변수에 저장된 값(주소값)이 같은지를 판단하는 기능밖에 할 수 없다는 것을 알 수 있다.
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09-11.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/56c97c12-b737-4223-9700-998653292242" width="600px" height="200">
 
 ​	Value인스턴스가 가지고 있는 value값을 비교하도록 하기 위해서 오버라이딩하여 주소가 아닌 객체에 저장된 내용을 비교하도록 변경하면 된다.
 
@@ -350,7 +350,7 @@ class shallowCopy{
 
 결과 그림
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_얕은복사.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/9c88b8d9-8dfd-4895-b8f2-5a13ace64d01" width="500px" height="200">
 
 깊은 복사(deep copy) : 원본과 복사본이 서로 다른 객체를 참조하기 때문에 원본의 변경이 복사본에 영향을 미치지 않는다.
 
@@ -436,7 +436,7 @@ c.p = new Point(this.p.x,this.p.y);
 return c;
 ```
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_깊은복사.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/2e011c63-21f4-4c6b-a711-d50f4445dedf" width="500px" height="200">
 
 **getClass()**
 
@@ -460,7 +460,7 @@ return c;
 
     - 즉 클래스 파일을 읽어서 사용하기 편한 형태로 저장해 놓은 것이 클래스 객체이다.
 
-    ![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_클래스로더.jpg)
+   <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/f132274c-447f-4d8b-96f5-5e10869c148e" width="600px" height="200">
 
 **Class객체를 얻는 방법**
 
