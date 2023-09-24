@@ -546,7 +546,7 @@ String b = "b";
 
 인스턴스내의 문자열이 바뀌는 것이 아니라 새로운 문자열("ab")이 담긴 String인스턴스가 생성되는 것이다.
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_변경불가능한 클래스.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/77e3c229-6461-4cf3-83b3-26d490ed136a" width="600px" height="200">
 
 > +을 사용해서 문자열을 결합하는 것은 매 연산 시마다 새로운 문자열을 가진 String인스턴스가 생성되어 메모리공간을 차지하게 되므로 가능한 결합횟수를 줄이는 것이 좋다. 문자열간의 결합이나 추출 등 문자열을 다루는 작업이 많이 필요한 경우면 StringBuffer클래스를 사용하는 것이 좋다.
 
@@ -564,13 +564,13 @@ String str4 = new String("abc");		// 새로운 String인스턴스를 생성
 
   new연산자에 의해서 메모리할당이 이루어지기 때문에 항상 새로운 String인스턴스가 생성된다.
 
-​		![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_String클래스 생성자이용.jpg)
+​		<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/af403bd9-3164-4754-a82a-e57f81f3aaaf" width="500px" height="160">
 
 - 문자열 리터럴의 경우
 
   이미 존재하는 것을 재사용 하는 것이다.
 
-  ![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_문자열 리터럴을 이용.jpg)
+  <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/89cc74b4-25bb-49b5-a22c-6414a6166221" width="500px" height="160">
 
 eqauls()를 사용했을때는 두 문자열의 내용("abc")를 비교하기 떄문에 모두 true
 
@@ -673,11 +673,11 @@ cArr.length =0
 
 #### String클래스의 생성자와 메서드
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_String클래스의 생성자와 메서드.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/64fcf81c-a55c-4ad9-a85b-d965e8b0cce1" width="800px" height="800">
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_String클래스의 생성자와 메서드2.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/bceac6b6-1749-4770-a15d-732b08eb289e" width="800px" height="800">
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_String클래스의 생성자와 메서드3.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/6bc236ff-ac4c-4ab5-8fe9-f4a92b212786" width="800px" height="800">
 
 #### join()과 java.util.StringJoiner(JDK 1.8 부터 추가)
 
@@ -1000,7 +1000,7 @@ System.out.println(sb);		// abc123ZZ
 System.out.println(sb2);	// abc123ZZ
 ```
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_StringBuffer의 변경.jpg)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/3648f225-596d-4b13-bc09-eb6395765fe5" width="600px" height="200">
 
 반환하는 주소가 자기 주소이니 같은 StringBuffer인스턴스를 가리키고 있다. 그래서 하나의 StringBuffer인스턴스에 대해 아래와 같이 연속적으로 append()를 호출하는 것이 가능
 
@@ -1037,9 +1037,9 @@ System.out.println(s.equals(s2));	// true
 
 **StringBuffer클래스의 생성자와 메서드**
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_StringBuffer클래스의 생성자와 메서드.png)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/d183b15d-0636-4313-a1db-88cbd2b20b5a" width="800px" height="800">
 
-![](C:\Users\이진형\OneDrive\바탕 화면\TIL\Java문법\img\09_StringBuffer클래스의 생성자와 메서드2.png)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/354d6d0e-645a-4a41-b8d7-27d256549770" width="800px" height="800">
 
 예제
 
