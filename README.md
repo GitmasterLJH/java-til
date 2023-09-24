@@ -23,6 +23,6 @@
 
 - [개념정리](https://github.com/GitmasterLJH/java-til/blob/main/Java%EB%AC%B8%EB%B2%95/08%20%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC.md)
 
-### 09 예외처리
+### 09 java.lang패키지와 유용한 클래스
 
-- [개념정리]()
+- [개념정리](https://github.com/Jinhyung01/Java_TIL/blob/main/Java%EB%AC%B8%EB%B2%95/09%20java.lang%ED%8C%A8%ED%82%A4%EC%A7%80%EC%99%80%20%EC%9C%A0%EC%9A%A9%ED%95%9C%20%ED%81%B4%EB%9E%98%EC%8A%A4.md#chapter-09-javalang%ED%8C%A8%ED%82%A4%EC%A7%80%EC%99%80-%EC%9C%A0%EC%9A%A9%ED%95%9C-%ED%81%B4%EB%9E%98%EC%8A%A4)
