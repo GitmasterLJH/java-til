@@ -21,7 +21,7 @@
 | public String toString                                       | 객체 자신의 정보를 문자열로 반환한다.                        |
 | public void notify                                           | 객체 자신을 사용하려고 기다리는 쓰레드를 하나만 깨운다.      |
 | public void notifyAll()                                      | 객체 자신을 사용하려고 기다리는 모든 쓰레드를 깨운다.        |
-| public void wait()<br />public void wait(long timeout)<br />public void wait(longtimeout, int nanos) | 다른 쓰레드가 notify()나 notifyAll()을 홏출할 때까지 현제 쓰레드를 무한히 또는 지정된 시간(timeout,nanos)동안 기다리게 한다.(timeout은 1/1000 초, nanos는 1/10^9 초) |
+| public void wait()<br />public void wait(long timeout)<br />public void wait(longtimeout, int nanos) | 다른 쓰레드가 notify()나 notifyAll()을 호출할 때까지 현제 쓰레드를 무한히 또는 지정된 시간(timeout,nanos)동안 기다리게 한다.(timeout은 1/1000 초, nanos는 1/10^9 초) |
 
 **equals(Object obj)**
 
@@ -61,6 +61,10 @@ class Value{
         this.value= value;
     }
 }
+/* 실행 결과
+v1가 v2는 다릅니다.
+v1가 v2는 같습니다.
+*/
 ```
 
 위 예제를 통해 Object클래스로부터 상속받은 equals메서드는 두 참조변수에 저장된 값(주소값)이 같은지를 판단하는 기능밖에 할 수 없다는 것을 알 수 있다.
@@ -108,6 +112,13 @@ class HashCodeEx1 {
         System.out.println(System.identityHashCode(str2));
     }
 }
+/* 실행 결과
+true
+96354
+96354
+1915910607
+284720968
+*/
 ```
 
 **toString()**
@@ -185,12 +196,16 @@ class CardToString2{
         System.out.println(c2.toString());
     }
 }
+/* 실행결과
+kind : SPADE, number : 1
+kind : Heart, number : 10
+*/
 ```
 
 **clone()**
 
 - 자신을 복제하여 새로운 인스턴스를 생성
-- Object클래스에 정의된 clone()은 단순히 인스턴스변수의 값만 복사하기 때문에 참타입의 인스턴스 변수가 있는 클래스는 완전한 인스턴스 복제가 이루어지지 않는다.
+- Object클래스에 정의된 clone()은 단순히 인스턴스 변수의 값만 복사하기 때문에 참타입의 인스턴스 변수가 있는 클래스는 완전한 인스턴스 복제가 이루어지지 않는다.
   - 배열에서 복제된 인스턴스도 같은 배열의 주소를 갖기 때문에 복제된 인스턴스의 작업이 원래의 인스턴스에 영향을 미치게 된다. 따라서 clone()메서드를 오버라이딩해서 새로운 배열을 생성하고 배열의 내용을 복사하도록 해야한다.
 
 ```java
@@ -410,7 +425,6 @@ public class ShallowDeepCopy{
         System.out.println("c3="+c3);
 
         c1.p.x = 9;
-        c2.p.x = 9;
         System.out.println("= c1의 변경 후 = ");
         System.out.println("c1="+c1);
         System.out.println("c2="+c2);
@@ -526,7 +540,7 @@ class ClassEx.Card
 
 문자열을 위한 변경 불가능한(immutable)클래스이다.
 
-String 클래스에서 문자열을 저장하기 위해서 문자형 배열 참조변수(char[]) value를 인스턴스 변수로 정의해놓고 있다. 인스턴스 생성시 생성자의 매개변수로 입력받는 문자열은 이 value에 char[]로 저장되는 것이다.
+String 클래스에서 문자열을 저장하기 위해서 문자형 배열 참조변수(char[] value)를 인스턴스 변수로 정의해놓고 있다. 인스턴스 생성시 생성자의 매개변수로 입력받는 문자열은 이 value에 char[]로 저장되는 것이다.
 
 ```java
 public final class String implements java.io.Serializable, Comparable{
@@ -665,7 +679,7 @@ class StringEx3 {
         System.out.println("@@@"+s+"@@@");
     }
 }
-/*결과
+/*실행 결과
 cArr.length =0
 @@@@@@
 */
@@ -678,6 +692,39 @@ cArr.length =0
 <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/bceac6b6-1749-4770-a15d-732b08eb289e" width="800px" height="800">
 
 <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/6bc236ff-ac4c-4ab5-8fe9-f4a92b212786" width="800px" height="800">
+
+**replace()와 (replaceAll(),replaceFirst) 차이**
+
+```java
+public class diff {
+    public static void main(String[] args) {
+        String a = "Hello Hello";
+        // String replace(CharSequence old, CharSequence new)
+        System.out.println(a.replace("ll","LL"));
+        // String replaceAll(String regex, String replacement)
+        System.out.println(a.replaceAll("ll","LL"));
+        // String replaceFirst(String regex, String replacement)
+
+        String s = "안녕하세여 hello world 환영해요";
+        // repalce
+        System.out.println(s.replace("[a-z]",""));
+        // replaceAll 은 정규식 적용가능(a-z 소문자 부분 다 공백)
+        System.out.println(s.replaceAll("[a-z]",""));
+         // replaceFirst 정규식 적용가능
+        System.out.println(s.replaceFirst("[a-z]",""));
+    }
+}
+/* 실행 결과
+HeLLo HeLLo
+HeLLo HeLLo
+HeLLo Hello
+안녕하세여 hello world 환영해요
+안녕하세여   환영해요
+안녕하세여 ello world 환영해요
+*/
+```
+
+
 
 #### join()과 java.util.StringJoiner(JDK 1.8 부터 추가)
 
@@ -864,12 +911,12 @@ Double.parseDouble(String s)
 class StringEx6{
     public static void main(String[] args) {
         int iVal = 100;
-        String strVal = String.valueOf(iVal);   // 300을 "300"으로 변환
+        String strVal = String.valueOf(iVal);   // 100을 "100"으로 변환
         
         double dVal = 200.0;
         String strVal2 = dVal + "";  // 빈 문자열을 이용해 "200.0"으로 변환
 									// 부호 +라는 의미
-        double sum = Integer.parseInt("+"+strVal)+ Double.parseDouble(strVal2);
+        double sum = Integer.parseInt("+"+ strVal)+ Double.parseDouble(strVal2);
         double sum2 = Integer.valueOf(strVal) + Double.valueOf(strVal2);
 
         System.out.println(String.join("",strVal,"+",strVal2,"=")+sum);
@@ -896,15 +943,19 @@ class StringEx6{
 
   참고!!
 
-- Integer클래스의 static int parseInt(String s, int radix)를 사용하면 16진수 값으로 표현된 문자열도 변환할 수 있다. 대소문자 구별 없이 a,b,c,d,e,f도 사용 가능
+  - Integer클래스의 static int parseInt(String s, int radix)를 사용하면 16진수 값으로 표현된 문자열도 변환할 수 있다. 대소문자 구별 없이 a,b,c,d,e,f도 사용 가능
+
 
   ```java
+  // Integer.valueOf("a",16);	
   int result = Integer.parseInt("a",16);
+  
   // reuslt에 10이 저장됨(16진수 a는 10진수로 10을 뜻한다.);
   
   // 만약 이처럼 숫자가 아닌 것을(a)를 숫자로 변환하려하면 NumberFormatException이 발생한다.
   System.out.println(Integer.parseInt("a"));
   ```
+
 
 **substring메서드**
 
@@ -945,7 +996,7 @@ Hello.java의 확장자는 java
 ```java
 // 문자열을 저장하기 위한 char형 배열의 참조변수를 인스턴스변수로 선언해 놓음
 // 인스턴스가 생성될 때 char형 배열이 생성되며 이 때 생성된 char형 배열을 인스턴스변수 value가 참조하게 된다.
-public final calss StringBuffer implements java.io.Serializable{
+public final class StringBuffer implements java.io.Serializable{
 	private char[] value;
 	...
 }
@@ -1068,6 +1119,7 @@ public class StringBufferEx2 {
     }
 }
 /* 결과
+18
 sb =0123456789.0
 sb2 =0123456789.0
 sb3 =0123456789.0
