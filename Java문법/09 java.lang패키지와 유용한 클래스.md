@@ -1327,6 +1327,6 @@ Math클래스를 새로 작성한 것이 StrictMath클래스
 
 **Math클래스의 메서드**
 
-![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Math클래스의 메서드.png)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/0ce0b6e9-b915-44ec-be9a-bd7fc6e17d25" width="800px" height="600">
 
-![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Math클래스의 메서드2.png)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/22248ffb-0223-4592-a5c6-296c585c6e43" width="800px" height="600">
