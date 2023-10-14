@@ -1151,3 +1151,182 @@ sb.append("abc");
 ```
 
 > StringBuffer도 충분히 성능이 좋기 때문에 성능향상이 반드시 필요한 경우를 제외하고는 StringBuilder로 굳이 바꿀 필요 없다.
+
+### 1.4 Math클래스
+
+Math클래스의 메서드는 모두 static이며, 2개의 상수만 정의해 놓았다.
+
+> 클래스 내에 인스턴스변수가 하나도 없으므로 인스턴스를 생성할 필요가 없다. 따라서 생성자의 접근 제어자를 private로 지정해 다른 클래스에서 Math인스턴스를 생성할 수 없도록 함
+
+```java
+public static final double E  = 2.7182818284590452354;	// 자연로그의 밑
+public static final double PI = 3.14159265358979323846; // 원주율 
+```
+
+**올림, 버림, 반올림**
+
+`Math.round()` : 소수점 첫째자리에서 반올림을 해 정수값(long)을 반환
+
+n+1째자리에서 반올림된 소수점 n자리 값을 얻으려면 
+$$ {dasdsaas}
+10^n을 곱하고 10^n.0으로 나눠주면된다.
+$$
+만약 90.7552를 소수점 셋째자리에서 반올림한 후 소수점  두 자리까지의 값만을 얻고 싶은 경우 다음과 같이 하면 된다.
+
+```
+1. 원래 값에 100을 곱한다.
+					90.7552 * 100 -> 9075.52
+2. 위의 결과에 Math.round()를 사용한다.
+					Math.round(9075.52) -> 9076
+3. 위의 결과를 다시 100.0으로 나눈다.
+					9076 /100.0 -> 90.76 	
+					// 만약 100을 나누면 90이 되어 원하는 값을 얻지 못하게 된다.
+```
+
+**Math.round, Math.ceil, Math.floor, Math.rint비교**
+
+```java
+// Math.ceil()  올림
+System.out.println(Math.ceil(1.1));     // 2.0 
+System.out.println(Math.ceil(-1.5));    // -1.0
+ 
+// Math.floor() 버림
+System.out.println(Math.floor(1.1));    // 1.0 
+System.out.println(Math.floor(-1.5));   // -2.0
+
+// Math.round() 반올림, 반환값이 int
+// round()는 소수점 첫째자리가 5일 때, 더 큰값으로 반올림한다.
+ System.out.println(Math.round(-1.5));	// -1
+ System.out.println(Math.round(-1.2));	// -1
+ System.out.println(Math.round(-1.7));	// -2
+
+// Math.rint() 반올림, 반환값이 double
+// rint()는 소수점 첫째자리가 5일 때, 짝수를 반환한다.
+System.out.println(Math.rint(-1.5));	// -2.0
+System.out.println(Math.rint(-1.2));	// -1.0
+System.out.println(Math.rint(-1.7));	// -2.0
+```
+
+**예외를 발생시키는 Math클래스의 메서드**
+
+정수형간의 연산에서 발생할 수 있는 정수형 overflow를 감지하기 위해 메서드 이름에 `Exact` 가 포함된 메서드들이 JDK1.8부터 추가됨
+
+```java
+// 연산자는 결과를 반환할뿐 오버플로우의 발생여부에 대해 알려주지 않지만
+// 아래의 메서드들은 오버플로우가 발생하면, 예외(ArithmeticException)을 발생시킨다.
+
+int addExact(int x, int y)			// x + y
+int subtractExact(int x, int y)		// x - y
+int multiplyExact(int x, int y)		// x * y
+int incrementExact(int a)			// a++
+int decrementExact(int a)			// a--
+int negateExact(int a)				// -a (~a +1) ~a의 결과가 int최대값일때 1을 더하면 오버플로우 
+int toIntExact(long value)			// (int)value
+```
+
+negateExact(int a) 예제
+
+```java
+import static java.lang.System.*;
+import static java.lang.Math.*;
+
+class MathEx2 {
+    public static void main(String[] args) {
+        int i = Integer.MIN_VALUE;
+
+        out.println("i = "+i);	// i = -2147483648
+        
+        /* overflow가 발생해도 예외를 발생시키지 않고 연산 결과만 반환
+      	  -i = ~i + 1
+          ~i = 2147483648(int의 최댓값)
+          ~i + 1 = overflow에 의해 -2147483648
+        */
+        out.println("-i= "+(-i));
+
+        try{
+            out.printf("negateExact(%d)= %d\n",10,negateExact(10));
+            out.printf("negateExact(%d)= %d\n",-10,negateExact(-10));
+            out.printf("negateExact(%d)= %d\n",i,negateExact(i));      // 예외 발생
+        }catch (ArithmeticException e){
+            out.printf("negateExact(%d)= %d\n",(long)i,negateExact((long)i));
+        }
+    }
+}
+/* 실행결과
+
+-i= -2147483648
+negateExact(10)= -10
+negateExact(-10)= 10
+negateExact(-2147483648)= 2147483648
+*/
+```
+
+**삼각함수와 지수, 로그**
+
+```java
+Math.sqrt(double a) // a의 제곱근 계산(루트 a)
+Math.pow(double a,double b) // a의 b제곱
+Math.sin(double a)  // sin( a(rad) )
+Math.cos(double a)	// cos( a(rad) )
+Math.toRadians(double angdeg)	// 도를 라디안 단위로 변환
+Math.toDegrees(double angrad)	// 라디안을 도로 변환
+Math.atan2(double y, double x)	// 주어진 좌표 (x, y)에서의 각도를 계산할 때 x축과의 각도를 라디안 단위로 반환
+Math.log10(double a)	// log10(a)
+```
+
+예제
+
+```java
+public class MathEx3 {
+    public static void main(String[] args) {
+        int x1 = 1, y1 = 1; // (1,1)
+        int x2 = 2, y2 = 2; // (2,2)
+
+        // (1,1)과 (2,2) 두 점 사이의 길이
+        double c = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        double a = c * Math.sin(Math.PI / 4);	
+        double b = c * Math.cos(Math.PI / 4);
+        // double b = c * Math.cos(Math.toRadians(45));
+
+        System.out.printf("a=%f\n",a);	// a=1.000000
+        System.out.printf("b=%f\n",b);	// b=1.000000
+        System.out.printf("c=%f\n",c);	// c=1.414214
+        // a와 b사이의 각도 rad
+        System.out.printf("angle=%f rad\n",Math.atan2(a,b));	// angle=0.785398 rad
+        System.out.printf("angle=%f degree\n\n",Math.atan2(a,b)*180/Math.PI);	// angle=45.000000 degree
+    //  System.out.printf("angle=%f degree\n\n",Math.toDegrees(Math.atan2(a,b)));
+        
+        // 2^24 = 10^x 구하는 문제(24자리의 2진수는 10진수로 몇자리의 값인지 알아내기)
+        // 양변에 상용로그 취하면 24*log10(2) = x
+        // 결과가 약7.2 -> 10진수로 7자리의 값을 표현할 수 있다는 뜻 즉, float타입의 정밀도가 7자리인 것이다.
+        System.out.printf("24 * log10(2)=%f\n",24 * Math.log10(2));	// 7.224720 
+        
+        
+        // 2^53 = 10^x 구하는 문제(53자리의 2진수는 10진수로 몇자리의 값인지 알아내기)
+        // 양변에 상용로그 취하면 53*log10(2) = x
+        // 결과가 약15.9 -> 10진수로 15자리의 값을 표현할 수 있다는 뜻 즉, double타입의 정밀도가 15자리인 것이다.
+        System.out.printf("53 * log10(2)=%f\n",53 * Math.log10(2));	// 15.954590
+    }
+}
+```
+
+> float타입의 가수는 23자리지만, 정규화를 통해 1자리를 더 확보할 수 있으므로 실제로 저장할 수 있는 가수는 24자리이다. 
+>
+> double타입도 역시 52+1 = 53자리이다.
+
+**StrictMath클래스**
+
+Math클래스는 최대한의 성능을 얻기 위해 JVM이 설치된 OS의 메서드를 호출해서 사용한다.(**OS에 의존적인 계산**)
+
+예를 들어 부동소수점 계산의 경우 반올림의 처리방법 설정이 OS마다 다를 수 있기 때문에 자바로 작성된 프로그램임에도 불구하고 컴퓨터마다 결과가 다를 수 있다. 
+
+```
+이러한 차이를 없애기 위해 성능은 다소 포기하고 어떤 OS에서 실행되어도 항상 같은 결과를 얻도록
+Math클래스를 새로 작성한 것이 StrictMath클래스
+```
+
+**Math클래스의 메서드**
+
+![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Math클래스의 메서드.png)
+
+![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Math클래스의 메서드2.png)
