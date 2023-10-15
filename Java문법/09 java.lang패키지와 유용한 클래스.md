@@ -1330,3 +1330,182 @@ Math클래스를 새로 작성한 것이 StrictMath클래스
 <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/0ce0b6e9-b915-44ec-be9a-bd7fc6e17d25" width="800px" height="600">
 
 <img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/22248ffb-0223-4592-a5c6-296c585c6e43" width="800px" height="600">
+
+### 1.5 래퍼(wrapper)클래스
+
+객체지향 개념 : 모든 것은 객체로 다루어져야 한다.  하지만 높은 성능을 얻기위해 8개의 기본형을 객체로 다루지 않는다.(자바가 완전한 객체지향 언어가 아니라는 얘기를 듣는 이유)
+
+기본형 변수도 객체로 다뤄야 하는 경우가 있다.
+
+- 매개변수로 객체를 요구할때
+- 기본형 값이 아닌 객체로 저장해야할 때
+- 객체간의 비교가 필요할때
+
+이럴 때 사용되는 것이 `wrapper클래스`이다. 
+
+```java
+// int형의 래퍼 클래스인 Integer클래스의 실제코드
+public final class Integer extends Number implements Comparable{
+		...
+	private int value;
+	...
+}
+// 각 자료형에 알맞은 값을 내부적으로 저장하고 있다.
+```
+
+래퍼 클래스의 생성자
+
+| 기본형  | wrapper클래스 | 생성자                                                       | 활용 예                                                      |
+| ------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| boolean | Boolean       | Boolean (boolean value)<br />Boolean (String s)              | Booelan b = new Boolean (true);<br />Boolean b = new Booelan ("true"); |
+| char    | Character     | Character (char value)                                       | Character c = new Character ('a');                           |
+| byte    | Byte          | Byte (byte value)<br />Byte (String s)                       | Byte b = new Byte(10);<br />Byte b = new Byte("10");         |
+| short   | Short         | Short (short value)<br />Short (String s)                    | Short s = new Short(10);<br />Short s = new Short("10");     |
+| int     | Integer       | Integer (int value)<br />Integer (String s)                  | Integer i = new Integer(100);<br />Integer i = new Integer("100"); |
+| long    | Long          | Long (long value)<br />Long (String s)                       | Long l = new Long(100);<br />Long l = new Long("100");       |
+| float   | Float         | Float (double value)<br />Float (float value)<br />Float (String s) | Float f = new Float(1.0);<br />Float f = new Float(1.0f);<br />Float f = new Float("1.0"); |
+| double  | Double        | Double (double value)<br />Double (String s)                 | Double d = new Double(1.0);<br />Double d = new Double("1.0"); |
+
+> 주의할점 !!  생성자의 매개변수로 문자열을 제공할 때, 각 자료형에 알맞은 문자열을 사용해야한다.
+>
+> > 예시 : new Integer("1.0"); -> NumberFormatException발생
+
+예제
+
+```java
+class WrapperEx1 {
+    public static void main(String[] args) {
+        // Java 9부터는 Integer(int)와 같은 생성자들이 @Deprecated로 표시되어 있다.
+        // 이는 해당 생성자가 사용을 권장하지 않는다는 것을 의미
+        Integer i = new Integer(100);
+        Integer i2 = new Integer(100);
+
+        System.out.println("i==i2 ? "+(i==i2));		// false
+        System.out.println("i.equals(i2) ? "+i.equals(i2));		// true
+        
+        // i가 i2보다 크다면 양수, 작다면 음수, 같다면 0
+        System.out.println("i.compareTo(i2)="+i.compareTo(i2));	// 0
+        System.out.println("i.toString()="+i.toString());		// 100
+
+        System.out.println("MAX_VALUE="+Integer.MAX_VALUE);		// 2147483647
+        System.out.println("MIN_VALUE="+Integer.MIN_VALUE);		// -2147483648
+        System.out.println("SIZE="+Integer.SIZE+"bits");		// 32bits
+        System.out.println("BYTES="+Integer.BYTES+"bytes");		// 4bytes
+        System.out.println("TYPE="+Integer.TYPE);				// int
+    }
+}
+/* 만약 Integer i = 100; Integer i2 = 100;처럼 오토박싱이 된 경우에는 == 비교연산자를 사용할 수 없다.
+   값이 같으면 서로다른 객체인가를 비교하는 ==가 true로 나와서 따라서 compareTo()를 제공
+*/
+```
+
+**Number클래스**
+추상클래스로 내부적으로 숫자를 멤버변수로 갖는 wrapper 클래스들의 조상이다.
+
+![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Number클래스.png)
+
+다음 클래스는 연산자의 역할을 대신하는 다양한 메서드를 제공한다.
+
+- `BigInteger` : long으로도 다룰 수 없는 큰 범위 정수를 처리하기 위한 것
+
+- `BigDecimal` : double로도 다룰 수 없는 큰 범위의 부동 소수점수를 처리하기 위한 것
+
+```java
+// Number클래스의 실제 소스 코드
+public abstract class Number implements java.io.Serializable {
+    public abstract int    intValue();
+    public abstract long   longValue();
+    public abstract float  floatValue();
+    public abstract double doubleValue();
+    
+    public byte bytevalue(){
+        return (byte)intValue();
+    }
+    public short shortValue(){
+        return (short)shortValue();
+    }
+}
+```
+
+**문자열을 숫자로 변환하기**
+
+```java
+// 3가지 방법
+int		i  = new Integer("100").intValue();	// floatValue(), longValue(), ...
+int     i2 = Integer.parseInt("100");
+int     i3 = Integer.valueOf("100");
+```
+
+| 문자열 -> 기본형(반환값 기본형)                              | 문자열 -> 래퍼 클래스(반환값 래퍼클래스)                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| byte      b = Byte.parseByte("100");<br />shrot    s = Short.parseShort("100");<br />int         i = Integer.parseInt("100");<br />long      l = Long.parseLong("100");<br />float      f = Float.parseFloat("3.14");<br />double d = Double.parseDouble("3.14"); | Byte      b = Byte.valueOf("100");<br />short     s = Short.valueOF("100");<br />Integer  i = Integer.valueOf("100");<br />Long      l = Long.valueOf("100");<br />Float      f = Float.valueOf("3.14");<br />Double d = Double.valueOf("3.14"); |
+
+JDK1.5부터 도입된 `오토박싱(autoboxing)`기능 때문에 반환값이 기본형일 때와 래퍼 클래스일 떄의 차이가 없어짐
+
+> 성능은 valueOf()가 조금 더 느리다.
+
+```java
+int  i = Intger.parseInt("100");								int  i = Integer.valueOf("100");
+									<---------------------->
+long l = Long.parseLong("100");									long l = Long.valueOf("100");
+```
+
+**문자열이 10진수가 아닌 다른 진법(radix)의 숫자일때 변환하는 메서드**
+
+```java
+static int parseInt(String s, int radix)	// 문자열 s를 radix진법으로 인식
+static Integer valueOf(String s, int radix)
+    
+    
+// 예시
+int i4 = Integer.parseInt("100",2);	// 100(2) -> 4
+int i5 = Integer.parseInt("100",8);	// 100(8) -> 64
+int i6 = Integer.parseInt("100",16); // 100(16)-> 256
+int i7 = Integer.parseInt("FF",16);  // FF(16) -> 255
+// 진법을 생략하면 10진수로 간주하기 때문
+// int i8 = Intger.parseInt("FF");	// NumberFormatException발생
+
+Integer i9 = Integer.valueOf("100",2);
+Integer i10 = Integer.valueOf("100",8);
+Integer i11 = Integer.valueOf("100",16);
+Integer i12 = Integer.valueOf("FF",16);
+```
+
+**오토박싱 & 언박싱(autoboxing & unboxing)**
+
+`오토박싱(autoboxing)` : 기본형 값을 래퍼 클래스의 객체로 자동 변환해주는 것
+
+`언박싱(unboxing)` : 반대로 변환하는 것
+
+JDK1.5 이전에는 기본형 참조형 간의 연산이 불가능했기에 래퍼 클래스로 기본형을 객체를 만들어서 연산해야 했다.
+
+```java
+int i = 5;
+Integer iObj = new Integer(7);
+int sum = i+ Obj;	// 에러. 기본형과 참조형 간의 덧셈 불가(JDK1.5이전)
+```
+
+JDK1.5이후 부터는 기본형과 참조형 간의 덧셈 가능. 
+
+컴파일러가 자동으로 변환하는 코드를 넣어주기 때문이다.(아래 경우 컴파일러가 Integer객체를 int타입의 값으로 변환해주는 intValue()를 추가해줌)
+
+| 컴파일 전의 코드                                             | 컴파일 후의 코드                                             |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| int i =5;<br />Integer iObj = new Integer(7);<br /><br />int sum = i + iObj; | int i = 5;<br />Integer iObj = new Integer(7);<br /><br />int sum = i + iObj.intValue(); |
+
+```java
+Integer ten = 10;	// 자동 박싱. Integer ten = Integer.valueOf(10);로 자동처리 됨
+int n = ten;		// 자동 언박싱. int n = ten.intValue();로 자동 처리됨
+System.out.println(ten+n);	// ten.intValue() + n; 
+```
+
+> 이 외에도 내부적으로 객체 배열을 가지고 있는 Vector클래스나 ArrayList클래스에 기본형 값을 저장해야할 때나 형변환이 필요할 때도 컴파일러가 자동적으로 코드를 추가해준다.
+>
+> ```java
+> ArrayList<Integer> list = new ArrayList<integer>();
+> list.add(10);			    // 오토박싱. 10 -> new Integer(10)
+> int value  =  list.get(0);	// 언박싱. new Integer(10) -> 10
+> ```
+
+
+
