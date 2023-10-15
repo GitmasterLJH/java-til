@@ -1402,7 +1402,7 @@ class WrapperEx1 {
 **Number클래스**
 추상클래스로 내부적으로 숫자를 멤버변수로 갖는 wrapper 클래스들의 조상이다.
 
-<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/28bbbf9f-e388-4f94-873e-de20d9fec7eb" width="600px" height="200">
+![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Number클래스.png)
 
 다음 클래스는 연산자의 역할을 대신하는 다양한 메서드를 제공한다.
 
@@ -1507,5 +1507,353 @@ System.out.println(ten+n);	// ten.intValue() + n;
 > int value  =  list.get(0);	// 언박싱. new Integer(10) -> 10
 > ```
 
+## 2. 유용한 클래스
 
+### 2.1 java.util.Objects클래스
+
+> 모두 import java.util.Objects를 해야 사용가능
+
+Object클래스의 보조 클래스로 모든 메서드가 `static`이다. 객체의 비교나 널 체크(null check)에 유용하다.
+
+`isNull()`
+
+```java
+static boolean isNull(Object obj)	// 해당 객체가 널이면 true, 아니면 false
+// 예시
+System.out.println("isNull(null) ="+Objects.isNull(null)); 		// isNull(null) =true
+```
+
+`nonNull()`
+
+```java
+static boolean nonNull(Object obj)	// 해당 객체가 널이면 false, 아니면 true
+// 예시
+System.out.println("nonNull(null) ="+Objects.nonNull(null));	// nonNull(null) =false
+```
+
+`requireNonNull()` 
+
+```java
+// 해당 객체가 널이 아니어야 하는 경우에 사용
+// 만약 널이면, NullPointException을 발생시킨다.
+static <T> T requireNonNull(T obj)
+static <T> T requireNonNull(T obj, String message)	// 두 번째 매개변수로 지정하는 문자열은 예외의 메세지이다.
+static <T> T requireNonNull(T obj, Supplier<String> messageSupplier)
+```
+
+매개변수의 유효성 검사를 다음과 같이 했는데, 이제는 requireNonNull()의 호출만으로 간단히 끝낼수 있음
+
+```java
+void setName(String name){
+	if(name == null)
+		throw new NullPointerException("name must not be null");
+	
+	this.name = name;
+}
+											|
+                                            |
+                                            v
+void setName(String name){
+	this.name = Objects.requireNonNull(name, "name must not be null");                                                
+}
+```
+
+`compare()` : 대소비교를 한다.
+
+```java
+// 두 비교대상이 같으면 0, 크면 양수, 작으면 음수 반환
+static int compare(Object a, Object b, Comparator c)
+
+// 예시
+import java.util.Comparator;
+Comparator c = String.CASE_INSENSITIVE_ORDER; // 대소문자 구분 안하는 비교    
+System.out.println("compare(\"aa\",\"bb\")="+Objects.compare("aa","bb",c)); 	// -1
+System.out.println("compare(\"bb\",\"aa\")="+Objects.compare("bb","aa",c));		// 1
+System.out.println("compare(\"ab\",\"AB\")="+Objects.compare("ab","AB",c));		// 0
+```
+
+`equals()`
+
+Object클래스에 정의된 equals()는 객체를 비교할때등 null인지 반드시 확인해야 하지만(null값을 비교하려 하면 NullPointException이 발생하기 때문에),  Objects의 equals()는 null검사를 하지 않아도 된다.
+
+```java
+String a = null;
+String b = "aa";
+
+if(a!= null && a.equals(b)) {
+	...
+}
+			|
+			|
+			V
+if(Objects.equals(a,b)){
+	...
+}
+```
+
+equals() 메서드의 실제 코드
+
+```java
+// eqauls()내부에서 a와 b의 널 검사를 하기에 널 검사를 위한 조건식을 따로 넣지 않아도 된다.
+// a와 b가 모두 널일 경우에는 참을 반환한다.
+
+public static booelan equals(Object a, Object b){
+	return (a==b) || (a!=null && a.equals(b));
+}
+```
+
+`deepEquals()` : 객체를 재귀적으로 비교하기 때문에 다차원 배열의 비교도 가능
+
+```java
+String [][] str2D = new String [][]{{"aaa","bbb"},{"AAA","BBB"}};
+String [][] str2D2 = new String [][]{{"aaa","bbb"},{"AAA","BBB"}};
+
+System.out.println(Objects.eqauls(str2D, str2D2));	// false;
+System.out.println(Objects.deepEqauls(str2D, str2D2));	// true;
+```
+
+`toString()`: equals처럼 내부적으로 null 검사를 한다.
+
+```java
+static String toString(Object o)
+
+// o가 널일 때, 대신 사용할 값 지정
+static String toString(Object o, String nullDefalut)
+    
+// 예시
+System.out.println("toString(null)="+Objects.toString(null));	// toString(null)=null
+System.out.println("toString(null,\"\")="+Objects.toString(null,""));	// toString(null,"")=
+```
+
+`hashCode()`: 이 역시 내부적으로 널 검사를 한후에 Object클래스의 hashCode()를 호출한다
+
+```java
+static int hashCode(Object o)
+static int hash(Object...values)
+
+// 예시
+System.out.println("hashCode(null)="+Objects.hashCode(null));    //	hashCode(null)=0
+```
+
+### 2.2 java.util.Random클래스
+
+> 모두 import java.util.Random를 해야 사용가능
+
+난수 생성법
+
+1. Math.random() : 내부적으로 Radnom()클래스의 인스턴스를 생성해서 사용한다.
+2. Random클래스를 사용
+
+```java
+// 아래의 두 문장은 동등하다.
+double randNum = Math.random();
+double randNum = new Random().nextDobule();	
+```
+
+1~6사이의 정수를 난수로 얻고자 할 때
+
+```java
+int num = (int)(Math.random() * 6)+1;
+int num = new Random().nextInt(6) + 1; // nextInt(6)은 0~5사이의 정수를 반환
+```
+
+**Random클래스의 생성자와 메서드**
+
+Math.random과 Random()의 가장 큰 차이점 : Random()은 `종자값(seed)` 을 설정할 수 있다. 종자값이 같은 **Radnom인스턴스들은 항상** **같은 난수를 같은 순서대로 반환한다.**
+
+```java
+// Random() 생성자는 아래와 같이 종자값을 System.currentTimeMillis()로 하기 때문에 실행할때마다 얻는 난수가 달라짐
+
+public Random(){
+	this(System.currentTimeMillis());	// Random(long seed)를 호출한다.
+}
+```
+
+seed값 설정 예제
+
+```java
+import java.util.Random;
+
+public class RandomEx1 {
+    public static void main(String[] args) {
+        // rand, rand2 모두 seed를 1로 설정
+        Random rand = new Random(1);
+        Random rand2 = new Random(1);
+
+        System.out.println("= rand =");
+        for(int i=0;i<5;i++)
+            System.out.println(i+ ":"+rand.nextInt());
+        
+        System.out.println();
+        System.out.println("= rand2 =");
+        for(int i=0;i<5;i++)
+            System.out.println(i+ ":"+rand2.nextInt());
+    }
+}
+/* 실행결과
+= rand =
+0:-1155869325
+1:431529176
+2:1761283695
+3:1749940626
+4:892128508
+
+= rand2 =
+0:-1155869325
+1:431529176
+2:1761283695
+3:1749940626
+4:892128508
+*/
+```
+
+Random의 생성자와 메서드들
+
+| 메서드                        | 설명                                                         |
+| ----------------------------- | ------------------------------------------------------------ |
+| Random()                      | 현재시간(System.currentTimeMillis())을 종자값(seed)으로 이용 하는 Random 인스턴스를 생성한다 |
+| Random(long seed)             | 매개변수seed를 종자값으로 하는 Random 인스턴스를 생성한다    |
+| boolean nextBoolean()         | boolean타입의 난수를 반환한다.                               |
+| void nextBytes(byte [] bytes) | bytes 배열에 byte타입의 난수를 채워서 반환한다.              |
+| double nextDouble()           | double타입의 난수를 반환한다.(0.0<= x < 1.0)                 |
+| float nextFloat()             | float타입의 난수를 반환한다.(0.0<= x < 1.0)                  |
+| double nextGaussian()         | 평균은 0.0이고 표준편차는 1.0인 가우시안(Gaussian)분포에 따른 double형의 난수를 반환 한다. |
+| int nextInt()                 | int타입의 난수를 반환한다.(int의 범위)                       |
+| int nextInt(int n)            | 0~n의 범위에 있는 int값을 반환한다.(n은 범위에 포함되지 않음) |
+| long nextLong()               | long타입의 난수를 반환한다.(long의 범위)                     |
+| void setSeed(long seed)       | 종자값을 주어진 값(seed)으로 변경한다.                       |
+
+0~9 사이의 난수를 100개 발생시키고 각 숫자의 빈도수를 센 다음 그래프를 그리는 예제
+
+```java
+import java.util.Random;
+
+public class RandomEx2 {
+    public static void main(String[] args) {
+        Random rand = new Random();
+        int[] number = new int[100];
+        int[] counter = new int[10];
+
+        for (int i = 0; i < number.length; i++) {
+            //    System.out.print(number[i]=(int)(Math.random()*10));
+            System.out.print(number[i] = rand.nextInt(10));
+        }
+        System.out.println();
+
+        for (int i = 0; i < number.length; i++)
+            counter[number[i]]++;
+
+        for (int i = 0; i < counter.length; i++)
+            System.out.println(i + "의 개수 : " + printGraph('#', counter[i]) + " " + counter[i]);
+    }
+
+    public static String printGraph(char ch, int value) {
+        char[] bar = new char[value];
+
+        for (int i = 0; i < bar.length; i++)
+            bar[i] = ch;
+
+        return new String(bar);
+    }
+}
+/* 실행결과
+6471911944770946713851869712722137427481547110261566622547307976836894136447697217113367159350314377
+0의 개수 : #### 4
+1의 개수 : ################# 17
+2의 개수 : ######## 8
+3의 개수 : ########## 10
+4의 개수 : ############ 12
+5의 개수 : ###### 6
+6의 개수 : ############ 12
+7의 개수 : ################## 18
+8의 개수 : ##### 5
+9의 개수 : ######## 8
+*/
+```
+
+Math.random()을 이용해서 실제 프로그래밍에 유용한 메서드 만들기
+
+```java
+// 배열 arr을 from과 to범위의 값들로 채워서 반환한다.
+public static int[] fillRand(int[] arr, int from, int to) {
+       for (int i = 0; i < arr.length; i++)
+           arr[i] = getRand(from, to);
+       return arr;
+}
+
+// 배열 arr을 배열 data에 있는 값들로 채워서 반환한다.
+public static int[] fillRand(int[] arr, int[] data) {
+    for (int i = 0; i < arr.length; i++)
+        arr[i] = data[getRand(0, data.length - 1)];
+    return arr;
+}
+
+// from과 to범위의 정수(int)값을 반환.from과 to모두 범위에 포함된다.
+public static int getRand(int from, int to) {
+    return (int) (Math.random() * (Math.abs(to - from) + 1)) + Math.min(from, to);
+}
+
+// 실행
+public static void main(String[] args) {
+    for (int i = 0; i < 10; i++)
+        System.out.print(getRand(5, 10) + ",");
+    System.out.println();
+
+    int[] result = fillRand(new int[10], new int[]{2, 3, 7, 5});
+    System.out.println(Arrays.toString(result));
+}
+/* 실행결과
+8,9,9,8,6,8,6,7,5,6,
+[2, 5, 2, 7, 5, 3, 5, 5, 2, 2]
+*/
+```
+
+데이터베이스에 넣을 테스트 데이터를 만드는 예제
+
+```java
+class RandomEx4 {
+    final static int RECORD_NUM = 10;   // 생성할 레코드의 수
+    final static String TABLE_NAME = "TEST_TABLE";
+    final static String[] CODE1 = {"010", "011", "017", "018", "019"};
+    final static String[] CODE2 = {"남자", "여자"};
+    final static String[] CODE3 = {"10대", "20대", "30대", "40대", "50대"};
+
+    public static void main(String[] args) {
+        for (int i = 0; i < RECORD_NUM; i++) {
+            System.out.println(" INSERT INTO " + TABLE_NAME
+                    + " VALUES ("
+                    + " '" + getRandArr(CODE1) + "'"
+                    + ", '" + getRandArr(CODE2) + "'"
+                    + ", '" + getRandArr(CODE3) + "'"
+                    + ", '" + getRand(100,200) // 100~200사이의 값을 얻는다.
+                    + "); ");
+        }
+    }
+
+
+    public static String getRandArr(String[] arr) {
+        return arr[getRand(arr.length - 1)];  // 배열에 저장된 값 중 하나를 반환한다.
+    }
+
+    public static int getRand(int n) {
+        return getRand(0, n);
+    }
+
+    public static int getRand(int from, int to) {
+        return (int) (Math.random() * (Math.abs(to - from) + 1)) + Math.min(from, to);
+    }
+}
+/* 실행결과
+ INSERT INTO TEST_TABLE VALUES ( '018', '여자', '40대', '174); 
+ INSERT INTO TEST_TABLE VALUES ( '019', '여자', '40대', '101); 
+ INSERT INTO TEST_TABLE VALUES ( '017', '남자', '20대', '197); 
+ INSERT INTO TEST_TABLE VALUES ( '010', '남자', '20대', '181); 
+ INSERT INTO TEST_TABLE VALUES ( '019', '남자', '40대', '191); 
+ INSERT INTO TEST_TABLE VALUES ( '011', '남자', '10대', '190); 
+ INSERT INTO TEST_TABLE VALUES ( '011', '여자', '10대', '127); 
+ INSERT INTO TEST_TABLE VALUES ( '018', '여자', '40대', '155); 
+ INSERT INTO TEST_TABLE VALUES ( '019', '여자', '40대', '152); 
+ INSERT INTO TEST_TABLE VALUES ( '010', '남자', '40대', '165); 
+ */
+```
 
