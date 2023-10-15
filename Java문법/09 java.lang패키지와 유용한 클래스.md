@@ -1402,7 +1402,7 @@ class WrapperEx1 {
 **Number클래스**
 추상클래스로 내부적으로 숫자를 멤버변수로 갖는 wrapper 클래스들의 조상이다.
 
-![](C:\Users\이진형\OneDrive\바탕 화면\Java TIL\Java문법\img\09_Number클래스.png)
+<img src="https://github.com/Jinhyung01/Java_TIL/assets/129172593/28bbbf9f-e388-4f94-873e-de20d9fec7eb" width="600px" height="200">
 
 다음 클래스는 연산자의 역할을 대신하는 다양한 메서드를 제공한다.
 
