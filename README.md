@@ -24,3 +24,4 @@
 
 ​	11 [컬렉션 프레임웍](https://github.com/Jinhyung01/Java_TIL/blob/main/Java%EB%AC%B8%EB%B2%95/11%20%EC%BB%AC%EB%A0%89%EC%85%98%20%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8D.md)
 
+  12 [지네릭스, 열거형, 애너테이션](https://github.com/Jinhyung01/Java_TIL/blob/main/Java%EB%AC%B8%EB%B2%95/12%20%EC%A7%80%EB%84%A4%EB%A6%AD%EC%8A%A4%2C%20%EC%97%B4%EA%B1%B0%ED%98%95%2C%20%EC%95%A0%EB%84%88%ED%85%8C%EC%9D%B4%EC%85%98.md)
